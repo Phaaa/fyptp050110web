@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -240,8 +241,60 @@ class _ModelListTileState extends State<ModelListTile> {
               icon: const Icon(Icons.add_circle),
             ),
             RawMaterialButton(
-              onPressed: () {
-                if (FirebaseAuth.instance.currentUser == null) {}
+              onPressed: () async {
+                var current = int.parse(_quantityController.text);
+                if (current > 0) {
+                  var currentUser = FirebaseAuth.instance.currentUser!.uid;
+                  var userDoc = FirebaseFirestore.instance
+                      .collection("Users")
+                      .doc(currentUser);
+                  userDoc.update({
+                    "Cart": FieldValue.arrayUnion([
+                      {
+                        "Name": widget.itemsList['Name'],
+                        "Quantity": int.parse(_quantityController.text),
+                        "Price": widget.itemsList['Price'],
+                        "Total": int.parse(_quantityController.text) *
+                            widget.itemsList['Price']
+                      }
+                    ])
+                  });
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text("Success!"),
+                      content: const Text("Added to cart!"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context, 'OK');
+                          },
+                          child: const Text("OK"),
+                        )
+                      ],
+                    ),
+                  );
+                  setState(() {
+                    _quantityController.text = "0";
+                  });
+                } else {
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text("Invalid Quantity"),
+                      content:
+                          const Text("Specify a valid quantity to add to cart"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context, 'OK');
+                          },
+                          child: const Text("OK"),
+                        )
+                      ],
+                    ),
+                  );
+                }
               },
               child: const Text("Add To Cart"),
             ),

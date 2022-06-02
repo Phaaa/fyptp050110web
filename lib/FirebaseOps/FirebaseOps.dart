@@ -36,6 +36,7 @@ Future createNewWebUserFirestore(
       'UserFirstName': firstName,
       'UserLastName': lastName,
       'Address': address,
+      'Cart': [],
     },
   );
 }

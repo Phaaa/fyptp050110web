@@ -163,6 +163,7 @@ class _CartListTileState extends State<CartListTile> {
                                   "Name": widget.itemsList['Name'],
                                   "Quantity": widget.itemsList['Quantity'],
                                   "Price": widget.itemsList['Price'],
+                                  "Total": widget.itemsList['Total'],
                                 }
                               ])
                             },
