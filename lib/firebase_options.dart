@@ -61,3 +61,12 @@ class DefaultFirebaseOptions {
     storageBucket: 'fyptp050110web.appspot.com',
   );
 }
+
+const FirebaseOptions mfaFirebase = FirebaseOptions(
+  apiKey: "AIzaSyB0b82kzCYL4oTremS88T__LrFCuVvXTok",
+  authDomain: "fyptp050110-3f546.firebaseapp.com",
+  projectId: "fyptp050110-3f546",
+  storageBucket: "fyptp050110-3f546.appspot.com",
+  messagingSenderId: "542879731595",
+  appId: "1:542879731595:web:2da51a8b32a78d22a0698e",
+);

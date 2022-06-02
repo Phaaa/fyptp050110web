@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fyptp050110web/AdminPages/WebAdminHome.dart';
 import 'package:fyptp050110web/WebHome.dart';
@@ -83,6 +84,13 @@ Stream retrieveProducts() {
   return FirebaseFirestore.instance
       .collection("Products")
       .doc("RandomOne")
+      .snapshots();
+}
+
+Stream retrieveCart() {
+  return FirebaseFirestore.instance
+      .collection("Users")
+      .doc(FirebaseAuth.instance.currentUser!.uid)
       .snapshots();
 }
 
