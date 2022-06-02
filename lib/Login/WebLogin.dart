@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
 import 'package:fyptp050110web/Register/WebRegister.dart';
-import 'package:fyptp050110web/WebHome.dart';
-import 'package:fyptp050110web/WebHomeLoggedIn.dart';
+import 'package:fyptp050110web/UserPages/WebHome.dart';
+import 'package:fyptp050110web/UserPages/WebHomeLoggedIn.dart';
 
 class WebLogin extends StatelessWidget {
   const WebLogin({Key? key}) : super(key: key);
