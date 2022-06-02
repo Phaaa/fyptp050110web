@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "963118866147",
+    "project_id": "fyptp050110web",
+    "storage_bucket": "fyptp050110web.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963118866147:android:8fad28e775c78100872fd6",
+        "android_client_info": {
+          "package_name": "com.example.fyptp050110web"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963118866147-slboifr3gbjbr5d1dbnba379vnc7bfoo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbtb-ZI5njAJ_RU5apsW5FEssGTwH7ZNE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963118866147-slboifr3gbjbr5d1dbnba379vnc7bfoo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "963118866147-vvlb3rve70hh9a3b732gvhpkmvrsuv8q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fyptp050110web"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
