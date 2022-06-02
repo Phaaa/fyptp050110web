@@ -66,7 +66,7 @@ class _WebCartState extends State<WebCart> {
                                 MaterialPageRoute(
                                     builder: (context) => WebCheckout()));
                           },
-                          child: Text("Check Out"),
+                          child: const Text("Check Out"),
                           fillColor: Colors.amber[200],
                         ),
                       ),
