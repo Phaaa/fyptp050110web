@@ -76,8 +76,8 @@ class WebRegistrationPageState extends State<WebRegistrationPage> {
               controller: _newWebFirstNameController,
               obscureText: true,
               decoration: const InputDecoration(
-                  hintText: "First Name",
-                  prefixIcon: Icon(Icons.password, color: Colors.black)),
+                hintText: "First Name",
+              ),
             ),
             const SizedBox(
               height: 26.0,
@@ -86,8 +86,8 @@ class WebRegistrationPageState extends State<WebRegistrationPage> {
               controller: _newWebLastNameController,
               obscureText: true,
               decoration: const InputDecoration(
-                  hintText: "Last Name",
-                  prefixIcon: Icon(Icons.password, color: Colors.black)),
+                hintText: "Last Name",
+              ),
             ),
             const SizedBox(
               height: 26.0,
@@ -104,7 +104,7 @@ class WebRegistrationPageState extends State<WebRegistrationPage> {
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                   hintText: "Phone Number",
-                  prefixIcon: Icon(Icons.password, color: Colors.black)),
+                  prefixIcon: Icon(Icons.phone, color: Colors.black)),
             ),
             const SizedBox(
               height: 26.0,
@@ -113,8 +113,8 @@ class WebRegistrationPageState extends State<WebRegistrationPage> {
               controller: _newWebAddressController,
               obscureText: true,
               decoration: const InputDecoration(
-                  hintText: "Address",
-                  prefixIcon: Icon(Icons.password, color: Colors.black)),
+                hintText: "Address",
+              ),
             ),
             const SizedBox(
               height: 26.0,
