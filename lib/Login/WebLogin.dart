@@ -35,7 +35,7 @@ class _WebLoginPageState extends State<WebLoginPage> {
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
     return Padding(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,

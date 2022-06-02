@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
 import 'package:fyptp050110web/Login/WebLogin.dart';
-import 'package:fyptp050110web/ProductPages/WebKeyboards.dart';
-import 'package:fyptp050110web/ProductPages/WebKeycaps.dart';
-import 'package:fyptp050110web/ProductPages/WebSwitches.dart';
 
 class WebHome extends StatefulWidget {
   const WebHome({Key? key}) : super(key: key);

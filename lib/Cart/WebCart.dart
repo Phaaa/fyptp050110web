@@ -2,11 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:fyptp050110web/Checkout/WebCheckout.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
-import 'package:fyptp050110web/WebHome.dart';
 import 'package:fyptp050110web/WebHomeLoggedIn.dart';
 
 class WebCart extends StatefulWidget {
@@ -59,16 +56,14 @@ class _WebCartState extends State<WebCart> {
                         },
                         itemCount: cartList.length,
                       ),
-                      Container(
-                        child: RawMaterialButton(
-                          onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => WebCheckout()));
-                          },
-                          child: const Text("Check Out"),
-                          fillColor: Colors.amber[200],
-                        ),
+                      RawMaterialButton(
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => WebCheckout()));
+                        },
+                        child: const Text("Check Out"),
+                        fillColor: Colors.amber[200],
                       ),
                     ],
                   ),
@@ -105,9 +100,7 @@ class _CartListTileState extends State<CartListTile> {
       child: ListTile(
         tileColor: Colors.red,
         title: InkWell(
-          onTap: () {
-            print(widget.itemsList[''].toString());
-          },
+          onTap: () {},
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -187,7 +180,7 @@ class _CartListTileState extends State<CartListTile> {
                 );
               }
             },
-            icon: Icon(Icons.remove_circle),
+            icon: const Icon(Icons.remove_circle),
           ),
           SizedBox(
             width: 30,

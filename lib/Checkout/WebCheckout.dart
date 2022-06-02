@@ -18,10 +18,8 @@ class _WebCheckoutState extends State<WebCheckout> {
               MaterialPageRoute(builder: (context) => WebCart()));
         }),
       ),
-      body: Center(
-        child: Container(
-          child: Text("Checkout Page"),
-        ),
+      body: const Center(
+        child: Text("Checkout Page"),
       ),
     );
   }

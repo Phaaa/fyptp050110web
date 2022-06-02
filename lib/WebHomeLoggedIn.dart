@@ -4,10 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyptp050110web/Cart/WebCart.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
-import 'package:fyptp050110web/Login/WebLogin.dart';
-import 'package:fyptp050110web/ProductPages/WebKeyboards.dart';
-import 'package:fyptp050110web/ProductPages/WebKeycaps.dart';
-import 'package:fyptp050110web/ProductPages/WebSwitches.dart';
 import 'package:fyptp050110web/main.dart';
 
 class WebHomeLoggedIn extends StatefulWidget {
