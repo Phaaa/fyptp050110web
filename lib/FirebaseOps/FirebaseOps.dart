@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fyptp050110web/UserPages/WebHome.dart';
 import 'package:fyptp050110web/firebase_options.dart';
@@ -37,6 +38,7 @@ Future createNewWebUserFirestore(
       'PhoneNumber': phoneNumber,
       'Cart': [],
       'MfaStatus': false,
+      'MfaUserId': false,
     },
   );
 }
@@ -97,4 +99,48 @@ Stream retrieveCart() {
 
 Future logoutWebFirebase() async {
   await FirebaseAuth.instance.signOut();
+}
+
+Future pairMfa(
+    {required String email,
+    required String password,
+    required BuildContext context}) async {
+  FirebaseApp mfaFirebase = Firebase.app('mfaFirebase');
+  FirebaseAuth authForMfaFirebase = FirebaseAuth.instanceFor(app: mfaFirebase);
+  var userDoc = FirebaseFirestore.instance
+      .collection("Users")
+      .doc(FirebaseAuth.instance.currentUser!.uid);
+  var mfaUserDoc = FirebaseFirestore.instanceFor(app: mfaFirebase)
+      .collection("Users")
+      .where('Email', isEqualTo: email);
+  try {
+    await authForMfaFirebase.signInWithEmailAndPassword(
+        email: email, password: password);
+    if (authForMfaFirebase.currentUser!.uid != null) {
+      userDoc.update(
+        {'MfaUserId': authForMfaFirebase.currentUser!.uid, 'MfaStatus': true},
+      );
+      await authForMfaFirebase.signOut();
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text("Success!"),
+          content: const Text("Paired to MFA App successfully"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, 'OK');
+              },
+              child: const Text("OK"),
+            )
+          ],
+        ),
+      );
+    }
+  } on FirebaseAuthException catch (e) {
+    if (e.code == "user-not-found") {
+      print("No User found");
+    }
+  }
+  return null;
 }

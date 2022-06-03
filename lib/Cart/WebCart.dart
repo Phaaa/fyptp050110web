@@ -32,6 +32,12 @@ class _WebCartState extends State<WebCart> {
           if (snapshot.hasData) {
             var data = snapshot.data;
             List cartList = data['Cart'];
+            if (cartList.isEmpty) {
+              return const Padding(
+                padding: EdgeInsets.all(16),
+                child: Center(child: Text("Cart Is Empty.")),
+              );
+            }
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -204,7 +210,6 @@ class _CartListTileState extends State<CartListTile> {
                 _quantityController.text = current.toString();
                 var itemTotal = widget.itemsList['Price'] *
                     int.parse(_quantityController.text);
-                print(itemTotal);
               });
             },
             icon: const Icon(Icons.add_circle),
