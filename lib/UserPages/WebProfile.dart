@@ -104,7 +104,7 @@ class _WebProfileState extends State<WebProfile> {
                             width: 500,
                             child: TextField(
                               inputFormatters: <TextInputFormatter>[
-                                LengthLimitingTextInputFormatter(3),
+                                LengthLimitingTextInputFormatter(13),
                                 FilteringTextInputFormatter.allow(
                                   RegExp(r'[0-9]'),
                                 ),

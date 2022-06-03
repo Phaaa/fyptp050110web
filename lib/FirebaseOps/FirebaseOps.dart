@@ -97,6 +97,14 @@ Stream retrieveCart() {
       .snapshots();
 }
 
+Stream retrieveMfa({required String authAccount}) {
+  FirebaseApp mfaFirebase = Firebase.app('mfaFirebase');
+  return FirebaseFirestore.instanceFor(app: mfaFirebase)
+      .collection("Auth")
+      .doc(authAccount)
+      .snapshots();
+}
+
 Future logoutWebFirebase() async {
   await FirebaseAuth.instance.signOut();
 }
