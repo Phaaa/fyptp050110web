@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyptp050110web/Cart/WebCart.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
+import 'package:fyptp050110web/UserPages/WebProfile.dart';
 import 'package:fyptp050110web/UserPages/WebSettings.dart';
 import 'package:fyptp050110web/main.dart';
 
@@ -35,21 +36,22 @@ class _WebHomeLoggedInState extends State<WebHomeLoggedIn> {
                 ),
               ),
             ),
-            const ListTile(
-              leading: Icon(Icons.message),
-              title: Text("Hello"),
-            ),
-            const ListTile(
-              leading: Icon(Icons.message),
-              title: Text("Hello2"),
+            ListTile(
+              leading: const Icon(Icons.portrait),
+              title: const Text("Profile"),
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => WebProfile()));
+              },
             ),
             ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text("Settings"),
-                onTap: () {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => WebSettings()));
-                }),
+              leading: const Icon(Icons.settings),
+              title: const Text("Settings"),
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => WebSettings()));
+              },
+            ),
           ],
         ),
       ),
@@ -72,14 +74,13 @@ class _WebHomeLoggedInState extends State<WebHomeLoggedIn> {
         stream: retrieveProducts(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
-            return Text("Something Went Wrong");
+            return const Text("Something Went Wrong");
           }
           if (snapshot.hasData) {
             var data = snapshot.data;
             List keyboardsList = data['KeyboardModels'];
             List keycapList = data['KeycapModels'];
             List switchesList = data['SwitchesModels'];
-            print(keyboardsList);
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fyptp050110web/UserPages/WebHome.dart';
+import 'package:fyptp050110web/firebase_options.dart';
 import 'package:fyptp050110web/main.dart';
 
 Future loginUsingWebEmailPassword(
@@ -29,12 +30,13 @@ Future createNewWebUserFirestore(
   var newUserID = FirebaseAuth.instance.currentUser!.uid;
   userDoc.doc(newUserID).set(
     {
-      'UserEmail': email,
-      'UserType': 'Customer',
-      'UserFirstName': firstName,
-      'UserLastName': lastName,
+      'Email': email,
+      'FirstName': firstName,
+      'LastName': lastName,
       'Address': address,
+      'PhoneNumber': phoneNumber,
       'Cart': [],
+      'MfaStatus': false,
     },
   );
 }
