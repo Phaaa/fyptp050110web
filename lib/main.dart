@@ -11,7 +11,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await Firebase.initializeApp(name: 'mfaFirebase', options: mfaFirebase);
-  debugPrint(mfaFirebase.toString());
   runApp(MyApp());
 }
 

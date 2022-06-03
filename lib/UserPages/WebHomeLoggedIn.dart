@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyptp050110web/Cart/WebCart.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
+import 'package:fyptp050110web/UserPages/WebSettings.dart';
 import 'package:fyptp050110web/main.dart';
 
 class WebHomeLoggedIn extends StatefulWidget {
@@ -42,10 +43,13 @@ class _WebHomeLoggedInState extends State<WebHomeLoggedIn> {
               leading: Icon(Icons.message),
               title: Text("Hello2"),
             ),
-            const ListTile(
-              leading: Icon(Icons.settings),
-              title: Text("Settings"),
-            ),
+            ListTile(
+                leading: const Icon(Icons.settings),
+                title: const Text("Settings"),
+                onTap: () {
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => WebSettings()));
+                }),
           ],
         ),
       ),

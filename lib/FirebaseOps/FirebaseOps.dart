@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fyptp050110web/UserPages/WebHome.dart';
+import 'package:fyptp050110web/main.dart';
 
 Future loginUsingWebEmailPassword(
     {required String email,
@@ -58,12 +59,12 @@ Future registerNewWebUserFirestore(
         lastName: newLastName,
         phoneNumber: newPhoneNumber,
         address: newAddress);
-    User? user = await loginUsingWebEmailPassword(
+    await loginUsingWebEmailPassword(
         email: newEmail, password: newPassword, context: context);
-    if (user != null) {
+    if (FirebaseAuth.instance.currentUser != null) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => WebHome(),
+          builder: (context) => MyApp(),
         ),
       );
     }

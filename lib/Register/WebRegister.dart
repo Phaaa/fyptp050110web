@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
+import 'package:fyptp050110web/Login/WebLogin.dart';
 
 class WebRegister extends StatelessWidget {
   const WebRegister({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: WebRegistrationPage());
+    return Scaffold(
+        appBar: AppBar(
+          leading: BackButton(onPressed: () {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => WebLogin()));
+          }),
+        ),
+        body: WebRegistrationPage());
   }
 }
 
@@ -74,7 +82,6 @@ class WebRegistrationPageState extends State<WebRegistrationPage> {
             ),
             TextField(
               controller: _newWebFirstNameController,
-              obscureText: true,
               decoration: const InputDecoration(
                 hintText: "First Name",
               ),
@@ -84,7 +91,6 @@ class WebRegistrationPageState extends State<WebRegistrationPage> {
             ),
             TextField(
               controller: _newWebLastNameController,
-              obscureText: true,
               decoration: const InputDecoration(
                 hintText: "Last Name",
               ),
@@ -94,7 +100,6 @@ class WebRegistrationPageState extends State<WebRegistrationPage> {
             ),
             TextField(
               controller: _newWebPhoneNumberController,
-              obscureText: true,
               inputFormatters: <TextInputFormatter>[
                 LengthLimitingTextInputFormatter(13),
                 FilteringTextInputFormatter.allow(
@@ -111,7 +116,6 @@ class WebRegistrationPageState extends State<WebRegistrationPage> {
             ),
             TextField(
               controller: _newWebAddressController,
-              obscureText: true,
               decoration: const InputDecoration(
                 hintText: "Address",
               ),
