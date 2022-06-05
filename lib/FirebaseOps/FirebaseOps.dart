@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:fyptp050110web/UserPages/WebHome.dart';
-import 'package:fyptp050110web/firebase_options.dart';
 import 'package:fyptp050110web/main.dart';
 
 Future loginUsingWebEmailPassword(
@@ -118,9 +116,6 @@ Future pairMfa(
   var userDoc = FirebaseFirestore.instance
       .collection("Users")
       .doc(FirebaseAuth.instance.currentUser!.uid);
-  var mfaUserDoc = FirebaseFirestore.instanceFor(app: mfaFirebase)
-      .collection("Users")
-      .where('Email', isEqualTo: email);
   try {
     await authForMfaFirebase.signInWithEmailAndPassword(
         email: email, password: password);

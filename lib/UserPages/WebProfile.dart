@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
 import 'package:fyptp050110web/main.dart';
 
@@ -21,7 +19,7 @@ class _WebProfileState extends State<WebProfile> {
       appBar: AppBar(
         leading: BackButton(onPressed: () {
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => MyApp()));
+              MaterialPageRoute(builder: (context) => const MyApp()));
         }),
       ),
       body: StreamBuilder(
@@ -35,7 +33,6 @@ class _WebProfileState extends State<WebProfile> {
             var userDoc = FirebaseFirestore.instance
                 .collection("Users")
                 .doc(FirebaseAuth.instance.currentUser!.uid);
-            var email = data['Email'];
             var address = data['Address'];
             var firstName = data['FirstName'];
             var lastName = data['LastName'];
