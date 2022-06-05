@@ -19,58 +19,57 @@ class _WebSettingsState extends State<WebSettings> {
       appBar: AppBar(
         leading: BackButton(onPressed: () {
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => MyApp()));
+              MaterialPageRoute(builder: (context) => const MyApp()));
         }),
       ),
-      body: StreamBuilder(
-        stream: retrieveCart(),
-        builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.hasError) {
-            return const Text("Something went wrong");
-          }
-          if (snapshot.hasData) {
-            var data = snapshot.data;
-            var mfaStatus = data['MfaStatus'];
-            var userDoc = FirebaseFirestore.instance
-                .collection("Users")
-                .doc(FirebaseAuth.instance.currentUser!.uid);
-            if (!mfaStatus) {
-              return Container(
-                width: 200,
-                height: 100,
-                color: Colors.amber,
-                child: RawMaterialButton(
-                  child: Text("Enable Mfa"),
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => WebPairingLogin()));
-                  },
-                ),
-              );
-            } else {
-              return Container(
-                width: 200,
-                height: 100,
-                color: Colors.amber,
-                child: RawMaterialButton(
-                  child: Text("Disable Mfa"),
-                  onPressed: () {
-                    var userDoc = FirebaseFirestore.instance
-                        .collection("Users")
-                        .doc(FirebaseAuth.instance.currentUser!.uid);
-                    userDoc.update(
-                      {
-                        "MfaStatus": false,
-                        "MfaUserId": false,
-                      },
-                    );
-                  },
-                ),
-              );
+      body: Center(
+        child: StreamBuilder(
+          stream: retrieveCart(),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.hasError) {
+              return const Text("Something went wrong");
             }
-          }
-          return const Center(child: CircularProgressIndicator());
-        },
+            if (snapshot.hasData) {
+              var data = snapshot.data;
+              var mfaStatus = data['MfaStatus'];
+              if (!mfaStatus) {
+                return Container(
+                  width: 200,
+                  height: 100,
+                  color: Colors.amber,
+                  child: RawMaterialButton(
+                    child: const Text("Enable Mfa"),
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => const WebPairingLogin()));
+                    },
+                  ),
+                );
+              } else {
+                return Container(
+                  width: 200,
+                  height: 100,
+                  color: Colors.amber,
+                  child: RawMaterialButton(
+                    child: const Text("Disable Mfa"),
+                    onPressed: () {
+                      var userDoc = FirebaseFirestore.instance
+                          .collection("Users")
+                          .doc(FirebaseAuth.instance.currentUser!.uid);
+                      userDoc.update(
+                        {
+                          "MfaStatus": false,
+                          "MfaUserId": false,
+                        },
+                      );
+                    },
+                  ),
+                );
+              }
+            }
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
       ),
     );
   }

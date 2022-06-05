@@ -18,11 +18,11 @@ class _WebHomeState extends State<WebHome> {
       appBar: AppBar(
         actions: [
           Container(
-            padding: EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(5.0),
             child: RawMaterialButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => WebLogin()));
+                    MaterialPageRoute(builder: (context) => const WebLogin()));
               },
               child: const Text("Login"),
               fillColor: Colors.white,
@@ -34,7 +34,7 @@ class _WebHomeState extends State<WebHome> {
         stream: retrieveProducts(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
-            return Text("Something Went Wrong");
+            return const Center(child: Text("Something Went Wrong"));
           }
           if (snapshot.hasData) {
             var data = snapshot.data;

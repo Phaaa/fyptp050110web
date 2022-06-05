@@ -11,7 +11,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await Firebase.initializeApp(name: 'mfaFirebase', options: mfaFirebase);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -49,9 +49,9 @@ class _WebFirebaseInitState extends State<WebFirebaseInit> {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return WebHomeLoggedIn();
+                  return const WebHomeLoggedIn();
                 } else {
-                  return WebHome();
+                  return const WebHome();
                 }
               },
             );

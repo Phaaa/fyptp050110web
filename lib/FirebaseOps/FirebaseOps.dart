@@ -68,7 +68,7 @@ Future registerNewWebUserFirestore(
     if (FirebaseAuth.instance.currentUser != null) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => MyApp(),
+          builder: (context) => const MyApp(),
         ),
       );
     }

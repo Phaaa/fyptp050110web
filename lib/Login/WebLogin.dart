@@ -17,7 +17,7 @@ class WebLogin extends StatelessWidget {
               MaterialPageRoute(builder: (context) => WebHome()));
         }),
       ),
-      body: WebLoginPage(),
+      body: const WebLoginPage(),
     );
   }
 }
@@ -98,7 +98,7 @@ class _WebLoginPageState extends State<WebLoginPage> {
                     context: context);
                 if (FirebaseAuth.instance.currentUser != null) {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => WebHomeLoggedIn()));
+                      builder: (context) => const WebHomeLoggedIn()));
                 }
               },
               child: const Text(
@@ -119,8 +119,8 @@ class _WebLoginPageState extends State<WebLoginPage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5.0)),
               onPressed: () async {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => WebRegister()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const WebRegister()));
               },
               child: const Text(
                 "Register",

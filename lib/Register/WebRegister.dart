@@ -15,7 +15,7 @@ class WebRegister extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => WebLogin()));
           }),
         ),
-        body: WebRegistrationPage());
+        body: const WebRegistrationPage());
   }
 }
 

@@ -1,7 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
 import 'package:fyptp050110web/UserPages/WebSettings.dart';
 
@@ -21,11 +18,11 @@ class _WebPairingLoginState extends State<WebPairingLogin> {
       appBar: AppBar(
         leading: BackButton(onPressed: () {
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => WebSettings()));
+              MaterialPageRoute(builder: (context) => const WebSettings()));
         }),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,8 +83,8 @@ class _WebPairingLoginState extends State<WebPairingLogin> {
                       email: _emailController.text,
                       password: _passwordController.text,
                       context: context);
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => WebSettings()));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const WebSettings()));
                 },
                 child: const Text(
                   "Login",

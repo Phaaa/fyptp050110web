@@ -30,9 +30,9 @@ class _WebHomeLoggedInState extends State<WebHomeLoggedIn> {
                   onPressed: () async {
                     await logoutWebFirebase();
                     Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => MyApp()));
+                        MaterialPageRoute(builder: (context) => const MyApp()));
                   },
-                  child: Text("Logout"),
+                  child: const Text("Logout"),
                 ),
               ),
             ),
@@ -40,16 +40,16 @@ class _WebHomeLoggedInState extends State<WebHomeLoggedIn> {
               leading: const Icon(Icons.portrait),
               title: const Text("Profile"),
               onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => WebProfile()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const WebProfile()));
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text("Settings"),
               onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => WebSettings()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const WebSettings()));
               },
             ),
           ],
@@ -58,11 +58,11 @@ class _WebHomeLoggedInState extends State<WebHomeLoggedIn> {
       appBar: AppBar(
         actions: [
           Container(
-            padding: EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(5.0),
             child: RawMaterialButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => WebCart()));
+                    MaterialPageRoute(builder: (context) => const WebCart()));
               },
               child: const Text("Cart"),
               fillColor: Colors.white,
@@ -215,7 +215,7 @@ class _ModelListTileState extends State<ModelListTile> {
                   });
                 }
               },
-              icon: Icon(Icons.remove_circle),
+              icon: const Icon(Icons.remove_circle),
             ),
             SizedBox(
               width: 30,

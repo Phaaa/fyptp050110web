@@ -50,7 +50,7 @@ class _WebPaymentState extends State<WebPayment> {
                   keyboardType: TextInputType.number,
                   controller: _cardNumberController,
                   decoration: const InputDecoration(
-                    hintText: "6-Digit OTP",
+                    hintText: "Card Number",
                   ),
                 ),
               ),
@@ -132,7 +132,8 @@ class _WebPaymentState extends State<WebPayment> {
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => MyApp()));
+                              MaterialPageRoute(
+                                  builder: (context) => const MyApp()));
                         },
                         child: const Text("OK"),
                       )

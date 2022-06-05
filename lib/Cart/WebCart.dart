@@ -20,7 +20,7 @@ class _WebCartState extends State<WebCart> {
       appBar: AppBar(
         leading: BackButton(onPressed: () {
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => WebHomeLoggedIn()));
+              MaterialPageRoute(builder: (context) => const WebHomeLoggedIn()));
         }),
       ),
       body: StreamBuilder(
@@ -66,7 +66,7 @@ class _WebCartState extends State<WebCart> {
                         onPressed: () {
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                  builder: (context) => WebCheckout()));
+                                  builder: (context) => const WebCheckout()));
                         },
                         child: const Text("Check Out"),
                         fillColor: Colors.amber[200],
