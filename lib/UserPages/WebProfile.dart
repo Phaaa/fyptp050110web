@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fyptp050110web/Dialogs/Dialogs.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
 import 'package:fyptp050110web/main.dart';
 
@@ -23,7 +24,7 @@ class _WebProfileState extends State<WebProfile> {
         }),
       ),
       body: StreamBuilder(
-        stream: retrieveCart(),
+        stream: retrieveUserDocFields(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
             return const Text("Something went wrong");
@@ -37,13 +38,13 @@ class _WebProfileState extends State<WebProfile> {
             var firstName = data['FirstName'];
             var lastName = data['LastName'];
             var phoneNumber = data['PhoneNumber'];
-            TextEditingController _WebFirstNameController =
+            TextEditingController _webFirstNameController =
                 TextEditingController(text: firstName);
-            TextEditingController _WebLastNameController =
+            TextEditingController _webLastNameController =
                 TextEditingController(text: lastName);
-            TextEditingController _WebAddressController =
+            TextEditingController _webAddressController =
                 TextEditingController(text: address);
-            TextEditingController _WebPhoneNumberController =
+            TextEditingController _webPhoneNumberController =
                 TextEditingController(text: phoneNumber);
             return Padding(
               padding: const EdgeInsets.all(16.0),
@@ -64,7 +65,7 @@ class _WebProfileState extends State<WebProfile> {
                               SizedBox(
                                 width: 200,
                                 child: TextField(
-                                  controller: _WebFirstNameController,
+                                  controller: _webFirstNameController,
                                   decoration: const InputDecoration(
                                     hintText: "First Name",
                                   ),
@@ -82,7 +83,7 @@ class _WebProfileState extends State<WebProfile> {
                               SizedBox(
                                 width: 200,
                                 child: TextField(
-                                  controller: _WebLastNameController,
+                                  controller: _webLastNameController,
                                   decoration: const InputDecoration(
                                     hintText: "First Name",
                                   ),
@@ -107,7 +108,7 @@ class _WebProfileState extends State<WebProfile> {
                                 ),
                               ],
                               keyboardType: TextInputType.number,
-                              controller: _WebPhoneNumberController,
+                              controller: _webPhoneNumberController,
                               decoration: const InputDecoration(
                                 hintText: "Phone Number",
                               ),
@@ -125,7 +126,7 @@ class _WebProfileState extends State<WebProfile> {
                           SizedBox(
                             width: 500,
                             child: TextField(
-                              controller: _WebAddressController,
+                              controller: _webAddressController,
                               decoration: const InputDecoration(
                                 hintText: "Address",
                               ),
@@ -142,27 +143,16 @@ class _WebProfileState extends State<WebProfile> {
                           onPressed: () {
                             userDoc.update(
                               {
-                                "FirstName": _WebFirstNameController.text,
-                                "LastName": _WebLastNameController.text,
-                                "PhoneNumber": _WebPhoneNumberController.text,
-                                "Address": _WebAddressController.text,
+                                "FirstName": _webFirstNameController.text,
+                                "LastName": _webLastNameController.text,
+                                "PhoneNumber": _webPhoneNumberController.text,
+                                "Address": _webAddressController.text,
                               },
                             );
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) => AlertDialog(
-                                title: const Text("Success!"),
-                                content: const Text("Profile Updated"),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context, 'OK');
-                                    },
-                                    child: const Text("OK"),
-                                  )
-                                ],
-                              ),
-                            );
+                            String successTitle = "Success!";
+                            String successContent = "Profile updated!";
+                            showGeneralSuccessDialog(
+                                context, successTitle, successContent);
                           },
                           child: const Text("Update Information"),
                           fillColor: Colors.amber,

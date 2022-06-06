@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyptp050110web/Cart/WebCart.dart';
 import 'package:fyptp050110web/Checkout/WebPayment.dart';
+import 'package:fyptp050110web/Dialogs/Dialogs.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
 
 class WebCheckout extends StatefulWidget {
@@ -23,7 +24,7 @@ class _WebCheckoutState extends State<WebCheckout> {
       ),
       body: Center(
         child: StreamBuilder(
-          stream: retrieveCart(),
+          stream: retrieveUserDocFields(),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasError) {
               return const Center(
@@ -111,22 +112,11 @@ class _WebCheckoutState extends State<WebCheckout> {
                                         ),
                                       );
                                     } else {
-                                      showDialog<String>(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            AlertDialog(
-                                          title: const Text("Error"),
-                                          content: const Text("Wrong OTP"),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context, 'OK');
-                                              },
-                                              child: const Text("OK"),
-                                            )
-                                          ],
-                                        ),
-                                      );
+                                      String errorTitle, errorContent;
+                                      errorTitle = "OTP Authentication Failed";
+                                      errorContent = "Wrong OTP";
+                                      showGeneralErrorDialog(
+                                          context, errorTitle, errorContent);
                                     }
                                   },
                                   child: const Text("Authenticate Pruchase"),

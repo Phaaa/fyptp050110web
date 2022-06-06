@@ -24,7 +24,7 @@ class _WebCartState extends State<WebCart> {
         }),
       ),
       body: StreamBuilder(
-        stream: retrieveCart(),
+        stream: retrieveUserDocFields(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
             return const Text("Something Went Wrong");

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyptp050110web/Cart/WebCart.dart';
+import 'package:fyptp050110web/Dialogs/Dialogs.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
 import 'package:fyptp050110web/UserPages/WebProfile.dart';
 import 'package:fyptp050110web/UserPages/WebSettings.dart';
@@ -260,41 +261,18 @@ class _ModelListTileState extends State<ModelListTile> {
                       }
                     ])
                   });
-                  showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      title: const Text("Success!"),
-                      content: const Text("Added to cart!"),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context, 'OK');
-                          },
-                          child: const Text("OK"),
-                        )
-                      ],
-                    ),
-                  );
+                  String successTitle = "Success!";
+                  String successContent = "Added to cart!";
+                  showGeneralSuccessDialog(
+                      context, successTitle, successContent);
                   setState(() {
                     _quantityController.text = "0";
                   });
                 } else {
-                  showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      title: const Text("Invalid Quantity"),
-                      content:
-                          const Text("Specify a valid quantity to add to cart"),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context, 'OK');
-                          },
-                          child: const Text("OK"),
-                        )
-                      ],
-                    ),
-                  );
+                  String errorTitle = "Invalid Quantity";
+                  String errorContent =
+                      "Specify a valid quantity to add to cart";
+                  showGeneralErrorDialog(context, errorTitle, errorContent);
                 }
               },
               child: const Text("Add To Cart"),

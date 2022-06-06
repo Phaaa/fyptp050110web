@@ -24,7 +24,7 @@ class _WebSettingsState extends State<WebSettings> {
       ),
       body: Center(
         child: StreamBuilder(
-          stream: retrieveCart(),
+          stream: retrieveUserDocFields(),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasError) {
               return const Text("Something went wrong");
@@ -53,10 +53,7 @@ class _WebSettingsState extends State<WebSettings> {
                   child: RawMaterialButton(
                     child: const Text("Disable Mfa"),
                     onPressed: () {
-                      var userDoc = FirebaseFirestore.instance
-                          .collection("Users")
-                          .doc(FirebaseAuth.instance.currentUser!.uid);
-                      userDoc.update(
+                      currentUserDoc.update(
                         {
                           "MfaStatus": false,
                           "MfaUserId": false,

@@ -14,7 +14,7 @@ class WebLogin extends StatelessWidget {
       appBar: AppBar(
         leading: BackButton(onPressed: () {
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => WebHome()));
+              MaterialPageRoute(builder: (context) => const WebHome()));
         }),
       ),
       body: const WebLoginPage(),
