@@ -32,6 +32,10 @@ class _WebCartState extends State<WebCart> {
           if (snapshot.hasData) {
             var data = snapshot.data;
             List cartList = data['Cart'];
+            num cartTotal = 0;
+            cartList.forEach((cartList) {
+              cartTotal += cartList['Total'];
+            });
             if (cartList.isEmpty) {
               return const Padding(
                 padding: EdgeInsets.all(16),
@@ -62,6 +66,9 @@ class _WebCartState extends State<WebCart> {
                         },
                         itemCount: cartList.length,
                       ),
+                      Container(
+                        child: Text("Cart Total: " + cartTotal.toString()),
+                      ),
                       RawMaterialButton(
                         onPressed: () {
                           Navigator.of(context).pushReplacement(
@@ -84,6 +91,11 @@ class _WebCartState extends State<WebCart> {
   }
 }
 
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
+}
+
 class CartListTile extends StatefulWidget {
   const CartListTile({
     Key? key,
@@ -100,6 +112,7 @@ class _CartListTileState extends State<CartListTile> {
   var quantityCounter = 0;
   late TextEditingController _quantityController =
       TextEditingController(text: widget.itemsList['Quantity'].toString());
+  late final VoidCallback onChanged;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -133,22 +146,50 @@ class _CartListTileState extends State<CartListTile> {
           IconButton(
             onPressed: () {
               var current = int.parse(_quantityController.text);
+              current--;
               if (current > 0) {
-                current--;
+                var currentUserDoc = FirebaseFirestore.instance
+                    .collection("Users")
+                    .doc(FirebaseAuth.instance.currentUser!.uid);
+                currentUserDoc.update(
+                  {
+                    "Cart": FieldValue.arrayRemove([
+                      {
+                        "Name": widget.itemsList['Name'],
+                        "Quantity": widget.itemsList['Quantity'],
+                        "Price": widget.itemsList['Price'],
+                        "Total": widget.itemsList['Total'],
+                      }
+                    ])
+                  },
+                );
                 setState(() {
                   _quantityController.text = current.toString();
-                  var itemTotal = widget.itemsList['Price'] *
-                      int.parse(_quantityController.text);
-                  print(itemTotal);
                 });
+                currentUserDoc.update(
+                  {
+                    "Cart": FieldValue.arrayUnion([
+                      {
+                        "Name": widget.itemsList['Name'],
+                        "Quantity": current,
+                        "Price": widget.itemsList['Price'],
+                        "Total": widget.itemsList['Price'] *
+                            int.parse(_quantityController.text),
+                      }
+                    ])
+                  },
+                );
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const WebCart()));
               }
               if (current == 0) {
                 showDialog<String>(
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
                     title: const Text("Remove from cart?"),
-                    content: const Text(
-                        "Would you like to remove this item from cart?"),
+                    content: Text("Would you like to remove " +
+                        (widget.itemsList['Name'].toString()) +
+                        " from cart?"),
                     actions: [
                       TextButton(
                         onPressed: () {
@@ -200,17 +241,46 @@ class _CartListTileState extends State<CartListTile> {
               controller: _quantityController,
               keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
+              focusNode: AlwaysDisabledFocusNode(),
             ),
           ),
           IconButton(
             onPressed: () {
               var current = int.parse(_quantityController.text);
               current++;
+              var currentUserDoc = FirebaseFirestore.instance
+                  .collection("Users")
+                  .doc(FirebaseAuth.instance.currentUser!.uid);
+              currentUserDoc.update(
+                {
+                  "Cart": FieldValue.arrayRemove([
+                    {
+                      "Name": widget.itemsList['Name'],
+                      "Quantity": widget.itemsList['Quantity'],
+                      "Price": widget.itemsList['Price'],
+                      "Total": widget.itemsList['Total'],
+                    }
+                  ])
+                },
+              );
               setState(() {
                 _quantityController.text = current.toString();
-                var itemTotal = widget.itemsList['Price'] *
-                    int.parse(_quantityController.text);
               });
+              currentUserDoc.update(
+                {
+                  "Cart": FieldValue.arrayUnion([
+                    {
+                      "Name": widget.itemsList['Name'],
+                      "Quantity": current,
+                      "Price": widget.itemsList['Price'],
+                      "Total": widget.itemsList['Price'] *
+                          int.parse(_quantityController.text),
+                    }
+                  ])
+                },
+              );
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const WebCart()));
             },
             icon: const Icon(Icons.add_circle),
           ),
