@@ -34,9 +34,9 @@ class _WebCartState extends State<WebCart> {
             var data = snapshot.data;
             List cartList = data['Cart'];
             num cartTotal = 0;
-            cartList.forEach((cartList) {
+            for (var cartList in cartList) {
               cartTotal += cartList['Total'];
-            });
+            }
             if (cartList.isEmpty) {
               return const Padding(
                 padding: EdgeInsets.all(16),
@@ -142,7 +142,7 @@ class _CartListTileState extends State<CartListTile> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(widget.itemsList['Name']),
-              Container(
+              SizedBox(
                 width: 300,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -344,7 +344,7 @@ class _CartListTileState extends State<CartListTile> {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const WebCart()));
                   }
-                } on FormatException catch (e) {
+                } on FormatException {
                   _quantityController.text = "0";
                   showDialog<String>(
                     context: context,

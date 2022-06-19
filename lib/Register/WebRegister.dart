@@ -12,7 +12,7 @@ class WebRegister extends StatelessWidget {
         appBar: AppBar(
           leading: BackButton(onPressed: () {
             Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => WebLogin()));
+                MaterialPageRoute(builder: (context) => const WebLogin()));
           }),
         ),
         body: const WebRegistrationPage());
@@ -123,7 +123,7 @@ class WebRegistrationPageState extends State<WebRegistrationPage> {
             const SizedBox(
               height: 26.0,
             ),
-            Container(
+            SizedBox(
               width: double.infinity,
               child: RawMaterialButton(
                 fillColor: Colors.amber[200],

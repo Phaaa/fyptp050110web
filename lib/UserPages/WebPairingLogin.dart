@@ -71,7 +71,7 @@ class _WebPairingLoginState extends State<WebPairingLogin> {
             const SizedBox(
               height: 30.0,
             ),
-            Container(
+            SizedBox(
               width: double.infinity,
               child: RawMaterialButton(
                 fillColor: Colors.cyan,

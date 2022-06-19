@@ -84,7 +84,7 @@ class _WebLoginPageState extends State<WebLoginPage> {
           const SizedBox(
             height: 30.0,
           ),
-          Container(
+          SizedBox(
             width: double.infinity,
             child: RawMaterialButton(
               fillColor: Colors.amber[200],
@@ -111,7 +111,7 @@ class _WebLoginPageState extends State<WebLoginPage> {
             height: 20.0,
           ),
           const Text("Dont have an account? Register Here"),
-          Container(
+          SizedBox(
             width: double.infinity,
             child: RawMaterialButton(
               fillColor: Colors.amber[200],

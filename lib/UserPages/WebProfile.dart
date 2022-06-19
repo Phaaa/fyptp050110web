@@ -48,7 +48,7 @@ class _WebProfileState extends State<WebProfile> {
                 TextEditingController(text: phoneNumber);
             return Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Container(
+              child: SizedBox(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
