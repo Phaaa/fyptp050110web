@@ -55,14 +55,15 @@ class _WebHomeState extends State<WebHome> {
                     height: 8,
                   ),
                   Container(
-                    color: Colors.green,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.amber.shade200),
                     child: Column(
                       children: [
-                        Container(
+                        const SizedBox(
                           width: double.infinity,
                           height: 70,
-                          color: Colors.amber,
-                          child: const Center(
+                          child: Center(
                             child: Text("Keyboards"),
                           ),
                         ),
@@ -81,14 +82,15 @@ class _WebHomeState extends State<WebHome> {
                     height: 10,
                   ),
                   Container(
-                    color: Colors.green,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.amber.shade200),
                     child: Column(
                       children: [
-                        Container(
+                        const SizedBox(
                           width: double.infinity,
                           height: 70,
-                          color: Colors.amber,
-                          child: const Center(
+                          child: Center(
                             child: Text("Keycaps"),
                           ),
                         ),
@@ -106,14 +108,15 @@ class _WebHomeState extends State<WebHome> {
                     height: 10,
                   ),
                   Container(
-                    color: Colors.green,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.amber.shade200),
                     child: Column(
                       children: [
-                        Container(
+                        const SizedBox(
                           width: double.infinity,
                           height: 70,
-                          color: Colors.amber,
-                          child: const Center(
+                          child: Center(
                             child: Text("Switches"),
                           ),
                         ),
@@ -158,10 +161,25 @@ class _ModelListTileState extends State<ModelListTile> {
   Widget build(BuildContext context) {
     return Material(
       child: ListTile(
-        tileColor: Colors.red,
+        tileColor: Colors.amber.shade50,
         title: InkWell(
           onTap: () {
-            print(widget.itemsList['Description']);
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Text(widget.itemsList['Name']),
+                content:
+                    Text("Description: " + widget.itemsList['Description']),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("OK"),
+                  )
+                ],
+              ),
+            );
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

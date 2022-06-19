@@ -65,8 +65,7 @@ Future registerNewWebUserFirestore(
     required BuildContext context}) async {
   String errorTitle, errorContent;
   try {
-    final credential =
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: newEmail,
       password: newPassword,
     );
@@ -145,15 +144,14 @@ Future pairMfa(
   try {
     await authForMfaFirebase.signInWithEmailAndPassword(
         email: email, password: password);
-    if (authForMfaFirebase.currentUser!.uid != null) {
-      userDoc.update(
-        {'MfaUserId': authForMfaFirebase.currentUser!.uid, 'MfaStatus': true},
-      );
-      await authForMfaFirebase.signOut();
-      String successTitle = "Success!";
-      String successContent = "Paired to MFA App successfully";
-      return showGeneralSuccessDialog(context, successTitle, successContent);
-    }
+
+    userDoc.update(
+      {'MfaUserId': authForMfaFirebase.currentUser!.uid, 'MfaStatus': true},
+    );
+    await authForMfaFirebase.signOut();
+    String successTitle = "Success!";
+    String successContent = "Paired to MFA App successfully";
+    return showGeneralSuccessDialog(context, successTitle, successContent);
   } on FirebaseAuthException catch (e) {
     if (e.code == "user-not-found") {
       errorTitle = "Error: User not found";
