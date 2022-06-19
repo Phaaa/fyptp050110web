@@ -15,12 +15,13 @@ class _WebPaymentState extends State<WebPayment> {
   @override
   Widget build(BuildContext context) {
     TextEditingController _cardNumberController = TextEditingController();
+    TextEditingController _expiryDateController = TextEditingController();
     TextEditingController _cvvController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(onPressed: () {
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => MyApp()));
+              MaterialPageRoute(builder: (context) => const MyApp()));
         }),
       ),
       body: Center(
@@ -74,7 +75,7 @@ class _WebPaymentState extends State<WebPayment> {
                   ],
                   keyboardType: TextInputType.number,
                   obscureText: true,
-                  controller: _cvvController,
+                  controller: _expiryDateController,
                   decoration: const InputDecoration(
                     hintText: "Expiration Date",
                   ),

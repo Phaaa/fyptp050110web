@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyptp050110web/Checkout/WebCheckout.dart';
+import 'package:fyptp050110web/Checkout/WebPayment.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
 import 'package:fyptp050110web/UserPages/WebHomeLoggedIn.dart';
 
@@ -66,7 +67,7 @@ class _WebCartState extends State<WebCart> {
                         },
                         itemCount: cartList.length,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Container(
@@ -81,9 +82,16 @@ class _WebCartState extends State<WebCart> {
                       ),
                       RawMaterialButton(
                         onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => const WebCheckout()));
+                          var mfaStatus = data['MfaStatus'];
+                          if (!mfaStatus) {
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => const WebPayment()));
+                          } else {
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => const WebCheckout()));
+                          }
                         },
                         child: const Text("Check Out"),
                         fillColor: Colors.amber[200],
