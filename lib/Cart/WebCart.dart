@@ -66,8 +66,18 @@ class _WebCartState extends State<WebCart> {
                         },
                         itemCount: cartList.length,
                       ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       Container(
-                        child: Text("Cart Total: " + cartTotal.toString()),
+                        width: 200,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: Colors.cyan[200],
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                            child:
+                                Text("Cart Total: RM" + cartTotal.toString())),
                       ),
                       RawMaterialButton(
                         onPressed: () {
@@ -241,7 +251,140 @@ class _CartListTileState extends State<CartListTile> {
               controller: _quantityController,
               keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
-              focusNode: AlwaysDisabledFocusNode(),
+              onEditingComplete: () {
+                try {
+                  var current = int.parse(_quantityController.text);
+                  if ((_quantityController.text.isEmpty) || (current == 0)) {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text("Remove from cart?"),
+                        content: Text("Would you like to remove " +
+                            (widget.itemsList['Name'].toString()) +
+                            " from cart?"),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              var currentUserDoc = FirebaseFirestore.instance
+                                  .collection("Users")
+                                  .doc(FirebaseAuth.instance.currentUser!.uid);
+                              currentUserDoc.update(
+                                {
+                                  "Cart": FieldValue.arrayRemove([
+                                    {
+                                      "Name": widget.itemsList['Name'],
+                                      "Quantity": widget.itemsList['Quantity'],
+                                      "Price": widget.itemsList['Price'],
+                                      "Total": widget.itemsList['Total'],
+                                    }
+                                  ])
+                                },
+                              );
+                              Navigator.pop(context, 'Yes');
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => const WebCart()));
+                            },
+                            child: const Text("Yes"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                _quantityController.text =
+                                    widget.itemsList['Quantity'].toString();
+                              });
+                              Navigator.pop(context, 'No');
+                            },
+                            child: const Text("No"),
+                          )
+                        ],
+                      ),
+                    );
+                  }
+                  if (current > 0) {
+                    var currentUserDoc = FirebaseFirestore.instance
+                        .collection("Users")
+                        .doc(FirebaseAuth.instance.currentUser!.uid);
+                    currentUserDoc.update(
+                      {
+                        "Cart": FieldValue.arrayRemove([
+                          {
+                            "Name": widget.itemsList['Name'],
+                            "Quantity": widget.itemsList['Quantity'],
+                            "Price": widget.itemsList['Price'],
+                            "Total": widget.itemsList['Total'],
+                          }
+                        ])
+                      },
+                    );
+                    setState(() {
+                      _quantityController.text = current.toString();
+                    });
+                    currentUserDoc.update(
+                      {
+                        "Cart": FieldValue.arrayUnion([
+                          {
+                            "Name": widget.itemsList['Name'],
+                            "Quantity": current,
+                            "Price": widget.itemsList['Price'],
+                            "Total": widget.itemsList['Price'] *
+                                int.parse(_quantityController.text),
+                          }
+                        ])
+                      },
+                    );
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const WebCart()));
+                  }
+                } on FormatException catch (e) {
+                  _quantityController.text = "0";
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text("Remove from cart?"),
+                      content: Text("Would you like to remove " +
+                          (widget.itemsList['Name'].toString()) +
+                          " from cart?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            var currentUserDoc = FirebaseFirestore.instance
+                                .collection("Users")
+                                .doc(FirebaseAuth.instance.currentUser!.uid);
+                            currentUserDoc.update(
+                              {
+                                "Cart": FieldValue.arrayRemove([
+                                  {
+                                    "Name": widget.itemsList['Name'],
+                                    "Quantity": widget.itemsList['Quantity'],
+                                    "Price": widget.itemsList['Price'],
+                                    "Total": widget.itemsList['Total'],
+                                  }
+                                ])
+                              },
+                            );
+                            Navigator.pop(context, 'Yes');
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => const WebCart()));
+                          },
+                          child: const Text("Yes"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              _quantityController.text =
+                                  widget.itemsList['Quantity'].toString();
+                            });
+                            Navigator.pop(context, 'No');
+                          },
+                          child: const Text("No"),
+                        )
+                      ],
+                    ),
+                  );
+                }
+              },
             ),
           ),
           IconButton(
