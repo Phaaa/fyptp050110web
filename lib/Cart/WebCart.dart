@@ -55,7 +55,7 @@ class _WebCartState extends State<WebCart> {
                       Container(
                         width: double.infinity,
                         height: 70,
-                        color: Colors.amber,
+                        color: Colors.purple,
                         child: const Center(
                           child: Text("Cart"),
                         ),
@@ -135,7 +135,7 @@ class _CartListTileState extends State<CartListTile> {
   Widget build(BuildContext context) {
     return Material(
       child: ListTile(
-        tileColor: Colors.red,
+        tileColor: Colors.purple.shade100,
         title: InkWell(
           onTap: () {},
           child: Row(
