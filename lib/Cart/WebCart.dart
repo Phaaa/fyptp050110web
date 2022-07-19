@@ -227,6 +227,9 @@ class _CartListTileState extends State<CartListTile> {
                             },
                           );
                           Navigator.pop(context, 'Yes');
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const WebCart()));
                         },
                         child: const Text("Yes"),
                       ),
