@@ -49,7 +49,7 @@ class _WebCheckoutState extends State<WebCheckout> {
                   }
                   if (snapshot2.hasData) {
                     var mfaUserData = snapshot2.data;
-                    String otp = mfaUserData['MfaOtp'];
+                    var otp = mfaUserData['MfaOtp'];
                     TextEditingController _otpController =
                         TextEditingController();
                     return SizedBox(
