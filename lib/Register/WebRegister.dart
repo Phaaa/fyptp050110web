@@ -44,7 +44,7 @@ class WebRegistrationPageState extends State<WebRegistrationPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "MfaAppName",
+              "E-commerce Web Application Name",
               style: TextStyle(
                   color: Colors.amber,
                   fontSize: 24.0,
