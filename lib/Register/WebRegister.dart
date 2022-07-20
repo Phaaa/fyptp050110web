@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fyptp050110web/Dialogs/Dialogs.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
 import 'package:fyptp050110web/Login/WebLogin.dart';
 
@@ -131,14 +132,37 @@ class WebRegistrationPageState extends State<WebRegistrationPage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
                 onPressed: () async {
-                  registerNewWebUserFirestore(
-                      newEmail: _newWebEmailController.text,
-                      newPassword: _newWebPasswordController.text,
-                      newFirstName: _newWebFirstNameController.text,
-                      newLastName: _newWebLastNameController.text,
-                      newPhoneNumber: _newWebPhoneNumberController.text,
-                      newAddress: _newWebAddressController.text,
-                      context: context);
+                  if (_newWebEmailController.text.isEmpty ||
+                      _newWebPasswordController.text.isEmpty ||
+                      _newWebAddressController.text.isEmpty ||
+                      _newWebFirstNameController.text.isEmpty ||
+                      _newWebLastNameController.text.isEmpty ||
+                      _newWebPhoneNumberController.text.isEmpty) {
+                    String errorTitle = "Empty field detected";
+                    String errorContent =
+                        "Please ensure all text fields are filled up";
+                    showGeneralErrorDialog(context, errorTitle, errorContent);
+                  } else {
+                    if (_newWebPasswordController.text.length >= 8 &&
+                        _newWebPasswordController.text
+                            .contains(RegExp(r'[0-9]')) &&
+                        _newWebPasswordController.text
+                            .contains(RegExp(r'[a-z]'))) {
+                      registerNewWebUserFirestore(
+                          newEmail: _newWebEmailController.text,
+                          newPassword: _newWebPasswordController.text,
+                          newFirstName: _newWebFirstNameController.text,
+                          newLastName: _newWebLastNameController.text,
+                          newPhoneNumber: _newWebPhoneNumberController.text,
+                          newAddress: _newWebAddressController.text,
+                          context: context);
+                    } else {
+                      String errorTitle = "Weak Password";
+                      String errorContent =
+                          "Please ensure password is at least 8 characters long and includes numbers and alphabets";
+                      showGeneralErrorDialog(context, errorTitle, errorContent);
+                    }
+                  }
                 },
                 child: const Text(
                   "Register",

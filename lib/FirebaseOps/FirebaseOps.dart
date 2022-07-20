@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fyptp050110web/Dialogs/Dialogs.dart';
+import 'package:fyptp050110web/UserPages/WebSettings.dart';
 import 'package:fyptp050110web/main.dart';
 
 var currentUserId = FirebaseAuth.instance.currentUser!.uid;
@@ -151,12 +152,14 @@ Future pairMfa(
     await authForMfaFirebase.signOut();
     String successTitle = "Success!";
     String successContent = "Paired to MFA App successfully";
-    return showGeneralSuccessDialog(context, successTitle, successContent);
+    await showGeneralSuccessDialog(context, successTitle, successContent);
+    return Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const MyApp()));
   } on FirebaseAuthException catch (e) {
-    if (e.code == "user-not-found") {
+    if (e.code == "user-not-found" || e.code == "wrong-password") {
       errorTitle = "Error: User not found";
       errorContent =
-          "Account does not exist in our system. Please register an account with us from the mobile authenticator app.";
+          "Please ensure that you have an account registered on the MFA application and try again";
       showGeneralErrorDialog(context, errorTitle, errorContent);
     } else {
       errorTitle = "Error: " + e.code;

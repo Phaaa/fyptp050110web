@@ -33,7 +33,7 @@ class _WebCheckoutState extends State<WebCheckout> {
             }
             if (snapshot.hasData) {
               var userData = snapshot.data;
-              String authAccount = userData['MfaUserId'];
+              var authAccount = userData['MfaUserId'];
               return StreamBuilder(
                 stream: retrieveMfa(authAccount: authAccount),
                 builder: (context, AsyncSnapshot snapshot2) {

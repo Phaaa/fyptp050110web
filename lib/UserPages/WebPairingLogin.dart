@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fyptp050110web/Dialogs/Dialogs.dart';
 import 'package:fyptp050110web/FirebaseOps/FirebaseOps.dart';
 import 'package:fyptp050110web/UserPages/WebSettings.dart';
 
@@ -79,12 +80,18 @@ class _WebPairingLoginState extends State<WebPairingLogin> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
                 onPressed: () async {
-                  await pairMfa(
-                      email: _emailController.text,
-                      password: _passwordController.text,
-                      context: context);
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const WebSettings()));
+                  if (_passwordController.text.isEmpty ||
+                      _emailController.text.isEmpty) {
+                    String errorTitle = "Error";
+                    String errorContent =
+                        "Email and Password text fields cannot be empty";
+                    showGeneralErrorDialog(context, errorTitle, errorContent);
+                  } else {
+                    await pairMfa(
+                        email: _emailController.text,
+                        password: _passwordController.text,
+                        context: context);
+                  }
                 },
                 child: const Text(
                   "Login",

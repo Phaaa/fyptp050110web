@@ -141,18 +141,29 @@ class _WebProfileState extends State<WebProfile> {
                         width: 250,
                         child: RawMaterialButton(
                           onPressed: () {
-                            userDoc.update(
-                              {
-                                "FirstName": _webFirstNameController.text,
-                                "LastName": _webLastNameController.text,
-                                "PhoneNumber": _webPhoneNumberController.text,
-                                "Address": _webAddressController.text,
-                              },
-                            );
-                            String successTitle = "Success!";
-                            String successContent = "Profile updated!";
-                            showGeneralSuccessDialog(
-                                context, successTitle, successContent);
+                            if (_webFirstNameController.text.isEmpty ||
+                                _webLastNameController.text.isEmpty ||
+                                _webAddressController.text.isEmpty ||
+                                _webPhoneNumberController.text.isEmpty) {
+                              String errorTitle = "Incomplete Form";
+                              String errorContent =
+                                  "Please ensure all fields are filled up";
+                              showGeneralErrorDialog(
+                                  context, errorTitle, errorContent);
+                            } else {
+                              userDoc.update(
+                                {
+                                  "FirstName": _webFirstNameController.text,
+                                  "LastName": _webLastNameController.text,
+                                  "PhoneNumber": _webPhoneNumberController.text,
+                                  "Address": _webAddressController.text,
+                                },
+                              );
+                              String successTitle = "Success!";
+                              String successContent = "Profile updated!";
+                              showGeneralSuccessDialog(
+                                  context, successTitle, successContent);
+                            }
                           },
                           child: const Text("Update Information"),
                           fillColor: Colors.amber,
